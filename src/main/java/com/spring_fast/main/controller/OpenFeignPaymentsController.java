@@ -1,7 +1,7 @@
 package com.spring_fast.main.controller;
 
 import com.spring_fast.main.model.Payment;
-import com.spring_fast.main.proxy.PaymentsProxy;
+import com.spring_fast.main.proxy.OpenFeignPaymentsProxy;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-public class FeignPaymentsController {
+public class OpenFeignPaymentsController {
 
-    private final PaymentsProxy paymentsProxy;
+    private final OpenFeignPaymentsProxy openFeignPaymentsProxy;
 
-    public FeignPaymentsController(PaymentsProxy paymentsProxy) {
-        this.paymentsProxy = paymentsProxy;
+    public OpenFeignPaymentsController(OpenFeignPaymentsProxy openFeignPaymentsProxy) {
+        this.openFeignPaymentsProxy = openFeignPaymentsProxy;
     }
 
     @PostMapping("feign/payments")
@@ -23,6 +23,6 @@ public class FeignPaymentsController {
     ) {
         String requestId = UUID.randomUUID().toString();
 
-        return paymentsProxy.createFeignPayment(requestId, payment);
+        return openFeignPaymentsProxy.createFeignPayment(requestId, payment);
     }
 }
