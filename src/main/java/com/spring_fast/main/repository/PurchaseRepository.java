@@ -1,6 +1,7 @@
 package com.spring_fast.main.repository;
 
 import com.spring_fast.main.model.Purchase;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,9 @@ public class PurchaseRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public PurchaseRepository(JdbcTemplate jdbcTemplate) {
+    public PurchaseRepository(
+            @Qualifier("mysqlJdbcTemplate") JdbcTemplate jdbcTemplate
+    ) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
