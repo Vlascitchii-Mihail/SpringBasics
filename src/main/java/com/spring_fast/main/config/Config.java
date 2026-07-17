@@ -7,6 +7,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -38,6 +40,13 @@ public class Config {
         dataSource.setConnectionTimeout(1000);
 
         return dataSource;
+    }
+
+    @Bean
+    public PlatformTransactionManager msqlTransactionManager(
+            @Qualifier("mysqlDataSource") DataSource mysqlDataSource
+    ) {
+        return new DataSourceTransactionManager(mysqlDataSource);
     }
 
     @Bean
